@@ -440,3 +440,9 @@ libgrlnet-0.3.so.0:grl_net_wc_set_cache
 libgrlnet-0.3.so.0:grl_net_wc_set_cache_size
 libgrlnet-0.3.so.0:grl_net_wc_set_log_level
 libgrlnet-0.3.so.0:grl_net_wc_set_throttling
+libgrlpls-0.3.so.0:grl_pls_browse
+libgrlpls-0.3.so.0:grl_pls_browse_by_spec
+libgrlpls-0.3.so.0:grl_pls_browse_sync
+libgrlpls-0.3.so.0:grl_pls_file_to_media
+libgrlpls-0.3.so.0:grl_pls_get_file_attributes
+libgrlpls-0.3.so.0:grl_pls_media_is_playlist

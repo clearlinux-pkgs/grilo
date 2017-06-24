@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.3
-Release  : 2
+Release  : 3
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.3.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.3.tar.xz
 Summary  : Grilo playlist utility
@@ -27,6 +27,7 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(gtk+-3.0)
 BuildRequires : pkgconfig(libsoup-2.4)
 BuildRequires : pkgconfig(oauth)
+BuildRequires : totem-pl-parser-dev
 
 %description
 Thanks for using Grilo!
@@ -92,20 +93,23 @@ locales components for the grilo package.
 %setup -q -n grilo-0.3.3
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1491752783
-%configure --disable-static
+export SOURCE_DATE_EPOCH=1498335253
+%configure --disable-static --enable-grl-pls
 make V=1  %{?_smp_mflags}
 
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491752783
+export SOURCE_DATE_EPOCH=1498335253
 rm -rf %{buildroot}
 %make_install
 %find_lang grilo
@@ -123,6 +127,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 /usr/lib64/girepository-1.0/Grl-0.3.typelib
 /usr/lib64/girepository-1.0/GrlNet-0.3.typelib
+/usr/lib64/girepository-1.0/GrlPls-0.3.typelib
 /usr/share/gir-1.0/*.gir
 
 %files dev
@@ -148,10 +153,13 @@ rm -rf %{buildroot}
 /usr/include/grilo-0.3/grl-value-helper.h
 /usr/include/grilo-0.3/net/grl-net-wc.h
 /usr/include/grilo-0.3/net/grl-net.h
+/usr/include/grilo-0.3/pls/grl-pls.h
 /usr/lib64/libgrilo-0.3.so
 /usr/lib64/libgrlnet-0.3.so
+/usr/lib64/libgrlpls-0.3.so
 /usr/lib64/pkgconfig/grilo-0.3.pc
 /usr/lib64/pkgconfig/grilo-net-0.3.pc
+/usr/lib64/pkgconfig/grilo-pls-0.3.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -163,6 +171,8 @@ rm -rf %{buildroot}
 /usr/lib64/libgrilo-0.3.so.0.1.2
 /usr/lib64/libgrlnet-0.3.so.0
 /usr/lib64/libgrlnet-0.3.so.0.0.3
+/usr/lib64/libgrlpls-0.3.so.0
+/usr/lib64/libgrlpls-0.3.so.0.0.0
 
 %files locales -f grilo.lang
 %defattr(-,root,root,-)

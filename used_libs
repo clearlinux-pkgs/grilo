@@ -8,4 +8,5 @@ libgtk-3.so.0
 liboauth.so.0
 libpthread.so.0
 libsoup-2.4.so.1
+libtotem-plparser.so.18
 libxml2.so.2
