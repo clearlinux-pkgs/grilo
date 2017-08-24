@@ -1,4 +1,131 @@
-commit 53b44b711a4558c0511dbe73d928971fd2c7bb30
+commit b773deccb84c159850cdcf73db0d8e8707f9da09
+Author: Victor Toso <me@victortoso.com>
+Date:   Thu Aug 24 17:46:42 2017 +0200
+
+    Release 0.3.4
+
+ NEWS         | 17 +++++++++++++++++
+ configure.ac |  2 +-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+
+commit f7fa152f5b697a4fcd8fc9faf9d306402a1ee928
+Author: Victor Toso <me@victortoso.com>
+Date:   Thu Aug 24 17:26:56 2017 +0200
+
+    docs: fix make distclean
+    
+    Otherwise we'll get:
+    
+    ERROR: files left in build directory after distclean:
+    ./doc/grilo/grilo-scan.o
+    ./doc/grilo/efficient-metadata-resolution.c
+    ./doc/grilo/searching.c
+    ./doc/grilo/configuring-plugins.c
+    ./doc/grilo/browsing.c
+    ./doc/grilo/multivalues.c
+
+ doc/grilo/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit b73cf2268fd72e4b97c6900f8d99539c0cbab5e3
+Author: Pawan Chitrakar <chautari@gmail.com>
+Date:   Wed Aug 16 08:38:27 2017 +0000
+
+    Add Nepali translation
+
+ po/LINGUAS |   1 +
+ po/ne.po   | 193 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 194 insertions(+)
+
+commit 727e0c426cfbfee3163191520cb988c7cc7229a7
+Author: Rafael Fonseca <r4f4rfs@gmail.com>
+Date:   Thu Feb 4 15:10:36 2016 +0100
+
+    core: Improve warning message for non-handled related keys.
+    
+    When setting a non-handled related key, Grilo complains with the following
+    message
+    
+    Grilo-WARNING **: [data] data/grl-data.c:742: Trying to add an empty
+        GrlRelatedKeys to GrlData
+    
+    This patch improves the error reporting a bit by saying which key type is not
+    currently being handled.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=707643
+
+ src/data/grl-related-keys.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+commit 948686dbaec8fe1d45b9b0b5983297da606c2ab7
+Author: Rafael Fonseca <r4f4rfs@gmail.com>
+Date:   Sat Jan 30 16:10:28 2016 +0100
+
+    core: Fix warning when setting a related boolean key
+    
+    When trying to set a related key for which there is no specific handle, grilo
+    complains with the following message
+    
+    Grilo-WARNING **: [data] data/grl-data.c:742: Trying to add an empty
+    GrlRelatedKeys to GrlData
+    
+    This patch makes it possible to properly set such boolean keys.
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=707643
+
+ src/data/grl-related-keys.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+commit 39d2a865200e813f5aef73b1e06a057e793333c2
+Author: Kristjan SCHMIDT <kristjan.schmidt@googlemail.com>
+Date:   Sun Jun 11 22:06:40 2017 +0200
+
+    Updated Esperanto translation
+
+ po/eo.po | 130 ++++++++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 70 insertions(+), 60 deletions(-)
+
+commit 3104a340a674429a01a41fbce8441728660077e4
+Author: Emmanuele Bassi <ebassi@gnome.org>
+Date:   Sat Mar 11 23:07:06 2017 +0000
+
+    Fix build with recent Meson
+    
+    Referencing the current source directory inside an include_directories()
+    statement is not recommended in Meson, and version 0.39, released on
+    March 5th, declares it an error.
+
+ src/meson.build | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+commit c5eac4907f9a99280064aa001485f9696f5ebe10
+Author: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+Date:   Thu Feb 16 01:24:48 2017 +0100
+
+    build: Improve docs and introspection
+    
+    https://bugzilla.gnome.org/show_bug.cgi?id=778612
+
+ doc/grilo/Makefile.am      | 12 ++++++++++++
+ doc/grilo/meson.build      | 10 +++++++++-
+ doc/grilo/writing-apps.xml | 10 +++++-----
+ libs/meson.build           |  2 ++
+ libs/net/meson.build       | 13 ++++---------
+ libs/pls/meson.build       |  9 ++++++---
+ src/meson.build            |  1 +
+ 7 files changed, 39 insertions(+), 18 deletions(-)
+
+commit a0f3f0be1374458328f73d89e5dbb711009a0fb7
+Author: Victor Toso <me@victortoso.com>
+Date:   Tue Feb 14 14:35:10 2017 +0100
+
+    Post-release version bump to 0.3.4
+
+ configure.ac | 2 +-
+ meson.build  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+commit 8d04687dfa80625e655ce79fc995d7635456388b
 Author: Victor Toso <me@victortoso.com>
 Date:   Tue Feb 14 13:57:41 2017 +0100
 
