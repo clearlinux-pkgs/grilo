@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.4
-Release  : 4
+Release  : 5
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.4.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.4.tar.xz
 Summary  : Grilo playlist utility
