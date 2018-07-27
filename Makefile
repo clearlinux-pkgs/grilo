@@ -1,5 +1,5 @@
 PKG_NAME := grilo
-URL = https://download.gnome.org/sources/grilo/0.3/grilo-0.3.5.tar.xz
+URL = https://download.gnome.org/sources/grilo/0.3/grilo-0.3.6.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

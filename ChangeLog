@@ -1,3 +1,144 @@
+commit 6cd2e5e94f1ba2a8bf7c42da98523b3d76b5e298
+Author: Victor Toso <me@victortoso.com>
+Date:   Thu Jul 26 18:02:29 2018 +0200
+
+    Release 0.3.6
+
+ NEWS         | 13 +++++++++++++
+ configure.ac |  4 ++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
+
+commit d2114dd7c5c22eb416fabdcf37a74c801c1309f6
+Author: Victor Toso <me@victortoso.com>
+Date:   Wed Jul 25 14:03:29 2018 +0200
+
+    build-sys: require same version for glib components
+    
+    As gio-2.0 requirement was 2.44 since 555654f4132801 we can use the
+    same version for all glib components:
+    - gobject-2.0
+    - gmodule-2.0
+    - gio-2.0
+    - glib-2.0
+
+ configure.ac | 12 +++++++-----
+ meson.build  | 11 +++++++----
+ 2 files changed, 14 insertions(+), 9 deletions(-)
+
+commit 2b8b32e947ee3317edd2c74decbcfe2e67d81e02
+Author: 1PunMan <saurabhsingh412@gmail.com>
+Date:   Sun Jun 10 00:09:43 2018 +0530
+
+    core: Add grl_data_add_for_id()
+    
+    grl_data_add_for_id() allow unregistered keys to be
+    registered and set multiple values to it.
+    
+    https://gitlab.gnome.org/GNOME/grilo/issues/1
+
+ src/data/grl-data.c | 64 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/data/grl-data.h |  2 ++
+ 2 files changed, 66 insertions(+)
+
+commit b30608abacd37a4e39d5c5465efc82c566756631
+Author: 1PunMan <saurabhsingh412@gmail.com>
+Date:   Mon May 28 13:36:42 2018 +0530
+
+    core: Add grl_data_set_for_id()
+    
+    grl_data_set_for_id() allows keys that aren't registered,
+    to be registered and set it's value. It simply sets the value
+    for registered keys.
+    
+    https://gitlab.gnome.org/GNOME/grilo/issues/1
+
+ src/data/grl-data.c     | 69 ++++++++++++++++++++++++++++++++++++++++++++++++-
+ src/data/grl-data.h     |  2 ++
+ src/grl-registry-priv.h |  4 +++
+ src/grl-registry.c      | 68 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 142 insertions(+), 1 deletion(-)
+
+commit 06cd3944cc0a81a46c983f21a3bb6bc0266745c8
+Author: Victor Toso <me@victortoso.com>
+Date:   Wed Jul 25 00:15:45 2018 +0200
+
+    net: Remove deprecated g_type_class_add_private()
+    
+    Similar to previous commit but for the libs. Only the net library uses
+    g_type_class_add_private().
+
+ libs/net/grl-net-wc.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
+
+commit c76929fc7499d533fc6fb931ba2538147d5b9cb0
+Author: Victor Toso <me@victortoso.com>
+Date:   Tue Jul 24 23:54:44 2018 +0200
+
+    core: Remove deprecated g_type_class_add_private()
+    
+    Instead we define the class with G_DEFINE_TYPE_WITH_PRIVATE().
+    
+    This also removes the usage of G_TYPE_INSTANCE_GET_PRIVATE() as we use
+    instead the _get_instance_private()
+    
+    Notes:
+    - grl-caps: G_DEFINE_TYPE_WITH_PRIVATE had to be moved after
+      struct _GrlCapsPrivate definition;
+    - grl-operation-options: Idem to grl-caps
+
+ src/data/grl-config.c       |  9 ++-------
+ src/data/grl-data.c         |  9 ++-------
+ src/data/grl-media.c        | 12 ++----------
+ src/data/grl-related-keys.c | 11 ++---------
+ src/grl-caps.c              | 10 ++--------
+ src/grl-operation-options.c |  9 ++-------
+ src/grl-plugin.c            | 12 ++----------
+ src/grl-registry.c          | 11 ++---------
+ src/grl-source.c            | 17 +++++------------
+ 9 files changed, 21 insertions(+), 79 deletions(-)
+
+commit 82c54af9e6eac38f51c871909df0ba5e10816f6a
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Tue Jul 24 12:14:09 2018 +0200
+
+    grl-inspect: Add Python3 support to grilo-inspect
+    
+    We need to run a few commands to generate headers before compiling
+    grilo-inspect, make sure to support both Python2 and Python3.
+
+ tools/grilo-inspect/meson.build | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+commit c146f752475b53eddaa5b86090593125789ce93e
+Author: Bastien Nocera <hadess@hadess.net>
+Date:   Sun Jul 22 14:16:19 2018 +0200
+
+    build: Add CI
+    
+    So we don't get uncompiled MRs anymore.
+
+ .gitlab-ci.yml | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+commit cec88ac67bd3e216cbdd4fdfaffce428939fc3b6
+Author: Milo Casagrande <milo@ubuntu.com>
+Date:   Thu Jul 19 06:44:29 2018 +0000
+
+    Update Italian translation
+
+ po/it.po | 118 +++++++++++++++++++++++++++++++--------------------------------
+ 1 file changed, 58 insertions(+), 60 deletions(-)
+
+commit 2449de2a4b3c910c9ca7b15036e6216b9f81f2e3
+Author: Victor Toso <me@victortoso.com>
+Date:   Tue Jul 17 16:36:31 2018 +0200
+
+    Post-release version bump to 0.3.6
+
+ configure.ac | 2 +-
+ meson.build  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 commit 66bc17e9f7f99f494302226ec333ee175d0f906b
 Author: Victor Toso <me@victortoso.com>
 Date:   Tue Jul 17 16:22:39 2018 +0200
