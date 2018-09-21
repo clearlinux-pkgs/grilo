@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.6
-Release  : 8
+Release  : 9
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.6.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.6.tar.xz
 Summary  : Grilo Framework for multimedia developers, Not Installed
