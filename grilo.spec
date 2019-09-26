@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.10
-Release  : 13
+Release  : 14
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.10.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.10.tar.xz
 Summary  : Framework that provides access to various sources of multimedia content
