@@ -1,7 +1,6 @@
-0.3.10
+0.3.11
 docbook-xml
 liboauth-dev
 libsoup-dev
 pkgconfig(libsoup-2.4)
 pkgconfig(oauth)
-vala
