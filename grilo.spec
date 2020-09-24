@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.13
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.13.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.13.tar.xz
 Summary  : No detailed summary available
