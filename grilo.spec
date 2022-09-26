@@ -4,12 +4,18 @@
 #
 Name     : grilo
 Version  : 0.3.15
-Release  : 21
+Release  : 22
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
+Requires: grilo-bin = %{version}-%{release}
+Requires: grilo-data = %{version}-%{release}
+Requires: grilo-lib = %{version}-%{release}
+Requires: grilo-license = %{version}-%{release}
+Requires: grilo-locales = %{version}-%{release}
+Requires: grilo-man = %{version}-%{release}
 BuildRequires : buildreq-gnome
 BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
@@ -26,6 +32,80 @@ Thanks for using Grilo!
 Grilo is a framework for browsing and searching media content from various
 sources using a single API.
 
+%package bin
+Summary: bin components for the grilo package.
+Group: Binaries
+Requires: grilo-data = %{version}-%{release}
+Requires: grilo-license = %{version}-%{release}
+
+%description bin
+bin components for the grilo package.
+
+
+%package data
+Summary: data components for the grilo package.
+Group: Data
+
+%description data
+data components for the grilo package.
+
+
+%package dev
+Summary: dev components for the grilo package.
+Group: Development
+Requires: grilo-lib = %{version}-%{release}
+Requires: grilo-bin = %{version}-%{release}
+Requires: grilo-data = %{version}-%{release}
+Provides: grilo-devel = %{version}-%{release}
+Requires: grilo = %{version}-%{release}
+
+%description dev
+dev components for the grilo package.
+
+
+%package doc
+Summary: doc components for the grilo package.
+Group: Documentation
+Requires: grilo-man = %{version}-%{release}
+
+%description doc
+doc components for the grilo package.
+
+
+%package lib
+Summary: lib components for the grilo package.
+Group: Libraries
+Requires: grilo-data = %{version}-%{release}
+Requires: grilo-license = %{version}-%{release}
+
+%description lib
+lib components for the grilo package.
+
+
+%package license
+Summary: license components for the grilo package.
+Group: Default
+
+%description license
+license components for the grilo package.
+
+
+%package locales
+Summary: locales components for the grilo package.
+Group: Default
+
+%description locales
+locales components for the grilo package.
+
+
+%package man
+Summary: man components for the grilo package.
+Group: Default
+
+%description man
+man components for the grilo package.
+
+
 %prep
 %setup -q -n grilo-0.3.15
 cd %{_builddir}/grilo-0.3.15
@@ -35,11 +115,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-<<<<<<< Updated upstream
-export SOURCE_DATE_EPOCH=1661880677
-=======
-export SOURCE_DATE_EPOCH=1661289553
->>>>>>> Stashed changes
+export SOURCE_DATE_EPOCH=1664164134
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -56,24 +132,21 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-<<<<<<< Updated upstream
 # Tests require some glib schemas to be initialized
 target=$HOME/.local/share/glib-2.0/schemas
 mkdir -p $target
 glib-compile-schemas --targetdir=$target /usr/share/glib-2.0/schemas
 export XDG_DATA_DIRS="$HOME/.local/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
-=======
->>>>>>> Stashed changes
 meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/grilo
 cp %{_builddir}/grilo-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grilo/caeb68c46fa36651acf592771d09de7937926bb3
 DESTDIR=%{buildroot} ninja -C builddir install
+%find_lang grilo
 
 %files
 %defattr(-,root,root,-)
-<<<<<<< Updated upstream
 
 %files bin
 %defattr(-,root,root,-)
@@ -198,5 +271,3 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files locales -f grilo.lang
 %defattr(-,root,root,-)
 
-=======
->>>>>>> Stashed changes
