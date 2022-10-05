@@ -4,7 +4,7 @@
 #
 Name     : grilo
 Version  : 0.3.15
-Release  : 22
+Release  : 23
 URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
 Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
 Summary  : No detailed summary available
@@ -115,15 +115,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664164134
+export SOURCE_DATE_EPOCH=1664938880
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Denable-grl-pls=true  builddir
 ninja -v -C builddir
 
@@ -141,7 +141,7 @@ meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/grilo
-cp %{_builddir}/grilo-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grilo/caeb68c46fa36651acf592771d09de7937926bb3
+cp %{_builddir}/grilo-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grilo/caeb68c46fa36651acf592771d09de7937926bb3 || :
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang grilo
 
