@@ -4,10 +4,10 @@
 # Using build pattern: meson
 #
 Name     : grilo
-Version  : 0.3.15
-Release  : 24
-URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
-Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.15.tar.xz
+Version  : 0.3.16
+Release  : 25
+URL      : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.16.tar.xz
+Source0  : https://download.gnome.org/sources/grilo/0.3/grilo-0.3.16.tar.xz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -22,7 +22,6 @@ BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
 BuildRequires : gsettings-desktop-schemas
 BuildRequires : liboauth-dev
-BuildRequires : pkgconfig(libsoup-3.0)
 BuildRequires : pkgconfig(oauth)
 BuildRequires : totem-pl-parser-dev
 # Suppress stripping binaries
@@ -111,25 +110,30 @@ man components for the grilo package.
 
 
 %prep
-%setup -q -n grilo-0.3.15
-cd %{_builddir}/grilo-0.3.15
+%setup -q -n grilo-0.3.16
+cd %{_builddir}/grilo-0.3.16
+pushd ..
+cp -a grilo-0.3.16 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680033164
+export SOURCE_DATE_EPOCH=1684256317
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Denable-grl-pls=true  builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Denable-grl-pls=true  builddiravx2
+ninja -v -C builddiravx2
 
 %check
 export LANG=C.UTF-8
@@ -146,14 +150,19 @@ meson test -C builddir --print-errorlogs
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/grilo
 cp %{_builddir}/grilo-%{version}/COPYING %{buildroot}/usr/share/package-licenses/grilo/caeb68c46fa36651acf592771d09de7937926bb3 || :
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang grilo
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/grilo-test-ui-0.3
+/V3/usr/bin/grl-inspect-0.3
+/V3/usr/bin/grl-launch-0.3
 /usr/bin/grilo-test-ui-0.3
 /usr/bin/grl-inspect-0.3
 /usr/bin/grl-launch-0.3
@@ -171,6 +180,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libgrilo-0.3.so
+/V3/usr/lib64/libgrlnet-0.3.so
+/V3/usr/lib64/libgrlpls-0.3.so
 /usr/include/grilo-0.3/grilo.h
 /usr/include/grilo-0.3/grl-caps.h
 /usr/include/grilo-0.3/grl-config.h
@@ -255,12 +267,18 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libgrilo-0.3.so.0
+/V3/usr/lib64/libgrilo-0.3.so.0.316.1
+/V3/usr/lib64/libgrlnet-0.3.so.0
+/V3/usr/lib64/libgrlnet-0.3.so.0.316.0
+/V3/usr/lib64/libgrlpls-0.3.so.0
+/V3/usr/lib64/libgrlpls-0.3.so.0.316.0
 /usr/lib64/libgrilo-0.3.so.0
-/usr/lib64/libgrilo-0.3.so.0.315.1
+/usr/lib64/libgrilo-0.3.so.0.316.1
 /usr/lib64/libgrlnet-0.3.so.0
-/usr/lib64/libgrlnet-0.3.so.0.315.0
+/usr/lib64/libgrlnet-0.3.so.0.316.0
 /usr/lib64/libgrlpls-0.3.so.0
-/usr/lib64/libgrlpls-0.3.so.0.315.0
+/usr/lib64/libgrlpls-0.3.so.0.316.0
 
 %files license
 %defattr(0644,root,root,0755)

@@ -1,5 +1,4 @@
-0.3.15
+0.3.16
 docbook-xml
 liboauth-dev
-pkgconfig(libsoup-3.0)
 pkgconfig(oauth)
